@@ -14,9 +14,9 @@ class BrokenViewController: UIViewController {
 
     
     // STEP 1 TODO: Get from firebase database and integrate into UI
-    var firstName: String?
+    var firstName: String = ""
     var donations: [Donation] = []
-    var amountDonated: Double?
+    var amountDonated: Double = 0.0
 
     
     override func viewDidLoad() {
@@ -28,13 +28,38 @@ class BrokenViewController: UIViewController {
         }
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
+        let queue = DispatchQueue(label: "com.triumph.donations.queue", attributes: .concurrent)
+        let group = DispatchGroup()
+        
+        Api.User.getUser(completion: {
+            user in
+            if let name = user?.name?.components(separatedBy: " ").first {
+                self.firstName = name
+            }
+            self.setUI()
+        })
+        
         // Loads in donation objects
         Api.Donations.getMyDonations(completion: {
             donations in
             self.donations = donations ?? []
             self.tableView.reloadData()
+            
+            let donationAmounts = self.donations.compactMap { $0.amount }
+            self.amountDonated = donationAmounts.reduce(0, +)
+            
+            self.setUI()
         })
         
+//        if self.donations.count > 0 {
+//            let donationAmounts = self.donations.compactMap { $0.amount }
+//            self.amountDonated = donationAmounts.reduce(0, +)
+//            self.setUI()
+//        }
+        
+    }
+    
+    func setUI() {
         constrainTopMessage()
         constrainTableView()
         self.topMessage.attributedText = self.getDisplayedAttributedString()
@@ -47,7 +72,7 @@ class BrokenViewController: UIViewController {
         let textFont = UIFont.systemFont(ofSize: 32, weight: .bold)
         let text = NSMutableAttributedString()
         text.append(NSAttributedString(string: "Hi \(firstName), \n", attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), NSAttributedString.Key.font: hiFont]))
-        text.append(NSAttributedString(string: "You have donated", attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), NSAttributedString.Key.font: textFont]))
+        text.append(NSAttributedString(string: "You have donated ", attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), NSAttributedString.Key.font: textFont]))
         text.append(NSAttributedString(string: "$\(amountDonated)", attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2039215686, green: 0.7803921569, blue: 0.3490196078, alpha: 1), NSAttributedString.Key.font: numberFont]))
         text.append(NSAttributedString(string: " this year.", attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), NSAttributedString.Key.font: textFont]))
         return text
