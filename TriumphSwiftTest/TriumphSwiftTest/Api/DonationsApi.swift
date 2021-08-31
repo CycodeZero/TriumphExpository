@@ -10,30 +10,40 @@ import FirebaseDatabase
 
 class DonationsApi {
     
-    // TODO: We aren't getting any donations from the database!
     func getMyDonations(completion: @escaping ([Donation]?) -> Void) {
+        var userDonations: [String] = []
+        var donations = [Donation]()
+        
         Database.database().reference().child("myDonations").child("uid1").observe(.value, with: {
             snapshot in
-            
-            var donations = [Donation]()
-            
-            if !snapshot.exists() {
-                completion(donations)
-            } else if let donationIdDict = snapshot.value as? [String: Bool] {
-
-                for donationId in donationIdDict {
-                    Database.database().reference().child("donations").child(donationId.key).observeSingleEvent(of: .value, with: {
-                        snapshot in
-
-                        if let donationData = snapshot.value as? [String: Any] {
-                            let donation = Donation.transformDonation(dict: donationData, key: snapshot.key)
-                            donations.append(donation)
-                        }
-                    })
+            if let values = snapshot.value as? [String: Any] {
+                for each in values {
+                    userDonations.append(each.key)
                 }
             }
-            
-            completion(donations)
+        })
+        
+        Database.database().reference().child("donations").observe(.value, with: {
+            snapshot in
+                                                                    
+                                                                
+            if let donationIdDict = snapshot.value as? [String: Any] {
+                for donationId in donationIdDict {
+                    if userDonations.contains(donationId.key) {
+                        
+                        Database.database().reference().child("donations").child("\(donationId.key)").observe(.value, with: {
+                            snapshot in
+                            if let donationData = snapshot.value as? [String: Any] {
+                                let donation = Donation.transformDonation(dict: donationData, key: snapshot.key)
+                                donations.append(donation)
+                            }
+                            completion(donations)
+                        })
+                    }
+                }
+            } else if !snapshot.exists() {
+                completion(donations)
+            }
         })
     }
     

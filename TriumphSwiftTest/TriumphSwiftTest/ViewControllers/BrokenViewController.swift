@@ -28,9 +28,6 @@ class BrokenViewController: UIViewController {
         }
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
-        let queue = DispatchQueue(label: "com.triumph.donations.queue", attributes: .concurrent)
-        let group = DispatchGroup()
-        
         Api.User.getUser(completion: {
             user in
             if let name = user?.name?.components(separatedBy: " ").first {
@@ -50,12 +47,6 @@ class BrokenViewController: UIViewController {
             
             self.setUI()
         })
-        
-//        if self.donations.count > 0 {
-//            let donationAmounts = self.donations.compactMap { $0.amount }
-//            self.amountDonated = donationAmounts.reduce(0, +)
-//            self.setUI()
-//        }
         
     }
     

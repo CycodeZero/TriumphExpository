@@ -35,6 +35,7 @@ extension Donation {
         donation.timestamp = dict["timestamp"] as? Double
         donation.senderId = dict["senderId"] as? String
         donation.receiverId = dict["receiverId"] as? String
+        donation.id = key as? String
         return donation
     }
 }
