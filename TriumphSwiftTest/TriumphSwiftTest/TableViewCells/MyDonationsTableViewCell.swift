@@ -1,4 +1,5 @@
 import UIKit
+import SDWebImage
 
 class MyDonationsTableViewCell: UITableViewCell {
     
@@ -12,9 +13,11 @@ class MyDonationsTableViewCell: UITableViewCell {
     
     var donation: Donation? {
         didSet {
-            self.nameLabel.text = donation?.senderId
+            self.nameLabel.text = donation?.receiverId
             self.usernameLabel.text = donation?.senderId
-            moneyLabel.text = "$\(donation!.amount)"
+            if let donationAmount = donation?.amount {
+                moneyLabel.text = "$\(donationAmount)0"
+            }
         }
     }
     
@@ -37,13 +40,17 @@ class MyDonationsTableViewCell: UITableViewCell {
         nameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor, constant: -12).isActive = true
         nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 15).isActive = true
         nameLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        nameLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        nameLabel.shadowOffset = CGSize(width: 0.1, height: 0.1)
+        nameLabel.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        nameLabel.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         
         self.addSubview(usernameLabel)
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
         usernameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor, constant: 10).isActive = true
         usernameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 15).isActive = true
         usernameLabel.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.light)
+        usernameLabel.shadowOffset = CGSize(width: 0.1, height: 0.1)
+        usernameLabel.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         usernameLabel.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     
         
