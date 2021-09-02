@@ -5,8 +5,10 @@
 //
 
 import UIKit
+import SDWebImage
+import SwiftSpinner
 
-class BrokenViewController: UIViewController {
+class GoodViewController: UIViewController {
    
     /// Mark -- UI Elements
     let topMessage = UILabel()
@@ -28,25 +30,36 @@ class BrokenViewController: UIViewController {
         }
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
-        Api.User.getUser(completion: {
-            user in
-            if let name = user?.name?.components(separatedBy: " ").first {
-                self.firstName = name
+        DispatchQueue.global(qos: .background).async {
+            Api.User.getUser(completion: {
+                user in
+                if let name = user?.name?.components(separatedBy: " ").first {
+                    self.firstName = name
+                }
+                self.setUI()
+            })
+            
+            // Loads in donation objects
+            Api.Donations.getMyDonations(completion: {
+                donations in
+                self.donations = donations ?? []
+                self.tableView.reloadData()
+                
+                let donationAmounts = self.donations.compactMap { $0.amount }
+                self.amountDonated = donationAmounts.reduce(0, +)
+                
+                self.setUI()
+            })
+            
+            DispatchQueue.main.async {
+                sleep(1)
+                SwiftSpinner.hide()
             }
-            self.setUI()
-        })
+        }
+        DispatchQueue.main.async {
+            SwiftSpinner.show("Loading...")
+        }
         
-        // Loads in donation objects
-        Api.Donations.getMyDonations(completion: {
-            donations in
-            self.donations = donations ?? []
-            self.tableView.reloadData()
-            
-            let donationAmounts = self.donations.compactMap { $0.amount }
-            self.amountDonated = donationAmounts.reduce(0, +)
-            
-            self.setUI()
-        })
         
     }
     
@@ -101,7 +114,7 @@ class BrokenViewController: UIViewController {
     }
 }
 
-extension BrokenViewController: UITableViewDataSource, UITableViewDelegate {
+extension GoodViewController: UITableViewDataSource, UITableViewDelegate {
     
     // One sections in tableview
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -117,6 +130,16 @@ extension BrokenViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyDonationsTableViewCell", for: indexPath) as! MyDonationsTableViewCell
         let donation = donations[indexPath.row]
         cell.donation = donation
+        
+        if let orgId = donation.receiverId {
+            Api.Organization.getOrganizationFromId(orgId: orgId, completion: {
+                organization in
+                if let photoURL = organization?.profilePhotoURL {
+                    cell.profileImageView.sd_setImage(with: URL(string: photoURL))
+//                    self.tableView.reloadData()
+                }
+            })
+        }
         return cell
     }
     

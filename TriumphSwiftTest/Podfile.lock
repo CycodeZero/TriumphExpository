@@ -87,11 +87,13 @@ PODS:
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
+  - SwiftSpinner (2.2.0)
 
 DEPENDENCIES:
   - Firebase
   - FirebaseDatabase
   - SDWebImage
+  - SwiftSpinner
 
 SPEC REPOS:
   trunk:
@@ -108,6 +110,7 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - SDWebImage
+    - SwiftSpinner
 
 SPEC CHECKSUMS:
   Firebase: ff8c73105b90e33e1dc6c8e5445d7adc2ccdc7c1
@@ -123,7 +126,8 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  SwiftSpinner: f9b59477fe107427f2b5b835497d6636fa167ede
 
-PODFILE CHECKSUM: c29c35ef758d29e0fe148d2fcf18f4672c0e8cc8
+PODFILE CHECKSUM: 370ff64b22cecf2c32bf8cde1e6f21a8038c3726
 
 COCOAPODS: 1.10.2

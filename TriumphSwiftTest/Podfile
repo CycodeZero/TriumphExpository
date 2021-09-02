@@ -8,5 +8,6 @@ target 'TriumphSwiftTest' do
   pod 'Firebase'
   pod 'FirebaseDatabase'
   pod 'SDWebImage'
+  pod 'SwiftSpinner'
 
 end

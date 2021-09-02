@@ -18,6 +18,15 @@ class MyDonationsTableViewCell: UITableViewCell {
             if let donationAmount = donation?.amount {
                 moneyLabel.text = "$\(donationAmount)0"
             }
+            
+//            if let orgId = donation?.receiverId {
+//                Api.Organization.getOrganizationFromId(orgId: orgId, completion: {
+//                    organization in
+//                    if let photoURL = organization?.profilePhotoURL {
+//                        self.profileImageView.sd_setImage(with: URL(string: photoURL))
+//                    }
+//                })
+//            }
         }
     }
     

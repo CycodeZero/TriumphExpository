@@ -10,7 +10,7 @@
 		ABF0562D4912594C2A79D773 /* Pods_TriumphSwiftTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 464FEA466F4D97AD3991131E /* Pods_TriumphSwiftTest.framework */; };
 		E519767B26D6D3A500CEB1DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E519767A26D6D3A500CEB1DE /* AppDelegate.swift */; };
 		E519767D26D6D3A500CEB1DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E519767C26D6D3A500CEB1DE /* SceneDelegate.swift */; };
-		E519767F26D6D3A500CEB1DE /* BrokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E519767E26D6D3A500CEB1DE /* BrokenViewController.swift */; };
+		E519767F26D6D3A500CEB1DE /* GoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E519767E26D6D3A500CEB1DE /* GoodViewController.swift */; };
 		E519768426D6D3A600CEB1DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E519768326D6D3A600CEB1DE /* Assets.xcassets */; };
 		E519768726D6D3A600CEB1DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E519768526D6D3A600CEB1DE /* LaunchScreen.storyboard */; };
 		E519768F26D6D94300CEB1DE /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = E519768E26D6D94300CEB1DE /* Api.swift */; };
@@ -32,7 +32,7 @@
 		E519767726D6D3A500CEB1DE /* TriumphSwiftTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TriumphSwiftTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E519767A26D6D3A500CEB1DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E519767C26D6D3A500CEB1DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E519767E26D6D3A500CEB1DE /* BrokenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokenViewController.swift; sourceTree = "<group>"; };
+		E519767E26D6D3A500CEB1DE /* GoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodViewController.swift; sourceTree = "<group>"; };
 		E519768326D6D3A600CEB1DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E519768626D6D3A600CEB1DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E519768826D6D3A600CEB1DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -133,7 +133,7 @@
 		E51976A226D700CF00CEB1DE /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				E519767E26D6D3A500CEB1DE /* BrokenViewController.swift */,
+				E519767E26D6D3A500CEB1DE /* GoodViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -274,7 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E519769526D6E28400CEB1DE /* DonationsApi.swift in Sources */,
-				E519767F26D6D3A500CEB1DE /* BrokenViewController.swift in Sources */,
+				E519767F26D6D3A500CEB1DE /* GoodViewController.swift in Sources */,
 				E519767B26D6D3A500CEB1DE /* AppDelegate.swift in Sources */,
 				E519768F26D6D94300CEB1DE /* Api.swift in Sources */,
 				E51976A126D6F13900CEB1DE /* OrganizationApi.swift in Sources */,
