@@ -8,6 +8,7 @@ class MyDonationsTableViewCell: UITableViewCell {
     var nameLabel = UILabel()
     var usernameLabel = UILabel()
     var moneyLabel = UILabel()
+    var timestampLabel = UILabel()
     let profileCircleSize = 43
     
     
@@ -18,13 +19,24 @@ class MyDonationsTableViewCell: UITableViewCell {
             if let donationAmount = donation?.amount {
                 moneyLabel.text = "$\(donationAmount)0"
             }
-            
-            
+            if let timestamp = donation?.timestamp {
+                let date = Date(timeIntervalSince1970: timestamp)
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.timeZone = TimeZone(abbreviation: "PST")
+                dateFormatter.locale = NSLocale.current
+                dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
+                dateFormatter.date(from: String(describing: date))
+                
+                let readableDate = dateFormatter.string(from: date)
+                
+                self.timestampLabel.text = String(describing: readableDate)
+            }
             if let orgId = donation?.receiverId {
                 Api.Organization.getOrganizationFromId(orgId: orgId, completion: {
                     organization in
                     if let photoURL = organization?.profilePhotoURL {
-                        self.profileImageView.sd_setImage(with: URL(string: photoURL), placeholderImage: UIImage(named: "user.png"))
+                        self.profileImageView.sd_setImage(with: URL(string: photoURL + ".jpg"), placeholderImage: UIImage(named: "user.png"))
                     }
                 })
             }
@@ -71,6 +83,15 @@ class MyDonationsTableViewCell: UITableViewCell {
         moneyLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         moneyLabel.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         moneyLabel.text = ""
+        
+        self.addSubview(timestampLabel)
+        timestampLabel.translatesAutoresizingMaskIntoConstraints = false
+        timestampLabel.centerYAnchor.constraint(equalTo: usernameLabel.centerYAnchor, constant: 0).isActive = true
+        timestampLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20).isActive = true
+        timestampLabel.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.light)
+        timestampLabel.shadowOffset = CGSize(width: 0.1, height: 0.1)
+        timestampLabel.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        timestampLabel.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

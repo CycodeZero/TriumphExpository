@@ -42,7 +42,9 @@ class GoodViewController: UIViewController {
             // Loads in donation objects
             Api.Donations.getMyDonations(completion: {
                 donations in
-                self.donations = donations ?? []
+                self.donations = donations?.sorted() {
+                    $0.timestamp ?? 0.0 < $1.timestamp ?? 0.0
+                } ?? []
                 self.tableView.reloadData()
                 
                 let donationAmounts = self.donations.compactMap { $0.amount }
@@ -129,16 +131,6 @@ extension GoodViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyDonationsTableViewCell", for: indexPath) as! MyDonationsTableViewCell
         let donation = donations[indexPath.row]
         cell.donation = donation
-        
-//        if let orgId = donation.receiverId {
-//            Api.Organization.getOrganizationFromId(orgId: orgId, completion: {
-//                organization in
-//                if let photoURL = organization?.profilePhotoURL {
-//                    cell.profileImageView.sd_setImage(with: URL(string: photoURL))
-//                    self.tableView.reloadData()
-//                }
-//            })
-//        }
         return cell
     }
     
