@@ -130,15 +130,15 @@ extension GoodViewController: UITableViewDataSource, UITableViewDelegate {
         let donation = donations[indexPath.row]
         cell.donation = donation
         
-        if let orgId = donation.receiverId {
-            Api.Organization.getOrganizationFromId(orgId: orgId, completion: {
-                organization in
-                if let photoURL = organization?.profilePhotoURL {
-                    cell.profileImageView.sd_setImage(with: URL(string: photoURL))
+//        if let orgId = donation.receiverId {
+//            Api.Organization.getOrganizationFromId(orgId: orgId, completion: {
+//                organization in
+//                if let photoURL = organization?.profilePhotoURL {
+//                    cell.profileImageView.sd_setImage(with: URL(string: photoURL))
 //                    self.tableView.reloadData()
-                }
-            })
-        }
+//                }
+//            })
+//        }
         return cell
     }
     

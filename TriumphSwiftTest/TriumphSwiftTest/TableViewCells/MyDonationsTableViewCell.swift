@@ -19,6 +19,7 @@ class MyDonationsTableViewCell: UITableViewCell {
                 moneyLabel.text = "$\(donationAmount)0"
             }
             
+            
 //            if let orgId = donation?.receiverId {
 //                Api.Organization.getOrganizationFromId(orgId: orgId, completion: {
 //                    organization in
@@ -82,4 +83,32 @@ class MyDonationsTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
+}
+
+extension UIImageView {
+    func imageFromServerURL(_ URLString: String, placeHolder: UIImage?) {
+        self.image = nil
+        
+        let imageServerURL = URLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        
+        if let url = URL(string: imageServerURL) {
+            URLSession.shared.dataTask(with: url, completionHandler: {
+                (data, response, error) in
+                
+                if error != nil {
+                    DispatchQueue.main.async {
+                        self.image = placeHolder
+                    }
+                    return
+                }
+                DispatchQueue.main.async {
+                    if let data = data {
+                        if let downloadedImage = UIImage(data: data) {
+                            self.image = downloadedImage
+                        }
+                    }
+                }
+            }).resume()
+        }
+    }
 }

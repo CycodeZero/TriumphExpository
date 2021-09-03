@@ -25,8 +25,8 @@ class ApplicationTabViewController: UITabBarController, UITabBarControllerDelega
         super.viewWillAppear(animated)
         let goodViewController = GoodViewController()
         let donationViewController = DonationViewController()
-        let icon1 = UITabBarItem(title: "User", image: UIImage(named: "userImage.png"), selectedImage: UIImage(named: "selectedUserImage.png"))
-        let icon2 = UITabBarItem(title: "Org", image: UIImage(named: "orgImage.png"), selectedImage: UIImage(named: "orgImage.png"))
+        let icon1 = UITabBarItem(title: "User", image: UIImage(named: "user.png"), selectedImage: UIImage(named: "user.png"))
+        let icon2 = UITabBarItem(title: "Donations", image: UIImage(named: "organization.png"), selectedImage: UIImage(named: "organization.png"))
         goodViewController.tabBarItem = icon1
         donationViewController.tabBarItem = icon2
         let controllers = [goodViewController, donationViewController]
