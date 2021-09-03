@@ -20,14 +20,14 @@ class MyDonationsTableViewCell: UITableViewCell {
             }
             
             
-//            if let orgId = donation?.receiverId {
-//                Api.Organization.getOrganizationFromId(orgId: orgId, completion: {
-//                    organization in
-//                    if let photoURL = organization?.profilePhotoURL {
-//                        self.profileImageView.sd_setImage(with: URL(string: photoURL))
-//                    }
-//                })
-//            }
+            if let orgId = donation?.receiverId {
+                Api.Organization.getOrganizationFromId(orgId: orgId, completion: {
+                    organization in
+                    if let photoURL = organization?.profilePhotoURL {
+                        self.profileImageView.sd_setImage(with: URL(string: photoURL), placeholderImage: UIImage(named: "user.png"))
+                    }
+                })
+            }
         }
     }
     
