@@ -30,7 +30,7 @@ class GoodViewController: UIViewController {
         }
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .userInitiated).async {
             Api.User.getUser(completion: {
                 user in
                 if let name = user?.name?.components(separatedBy: " ").first {
@@ -50,9 +50,8 @@ class GoodViewController: UIViewController {
                 
                 self.setUI()
             })
-            
+            sleep(1)
             DispatchQueue.main.async {
-                sleep(1)
                 SwiftSpinner.hide()
             }
         }
@@ -123,7 +122,7 @@ extension GoodViewController: UITableViewDataSource, UITableViewDelegate {
         
     // Individual section for you and then next section is leaderboard
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (donations ?? []).count
+        return donations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

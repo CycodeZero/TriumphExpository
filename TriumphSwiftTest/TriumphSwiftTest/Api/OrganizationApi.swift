@@ -20,4 +20,25 @@ class OrganizationApi {
             }
         })
     }
+    
+    func getAllOrganizations(completion: @escaping ([Organization]?) -> Void) {
+        var organizations = [Organization]()
+        
+        Database.database().reference().child("organization").observe(.value, with: {
+            snapshot in
+            if let value = snapshot.value as? [String: Any] {
+                for each in value {
+                    self.getOrganizationFromId(orgId: each.key, completion: {
+                        organization in
+                        if let organization = organization {
+                            organizations.append(organization)
+                        }
+                        completion(organizations)
+                    })
+                }
+            } else if !snapshot.exists() {
+                completion(organizations)
+            }
+        })
+    }
 }
