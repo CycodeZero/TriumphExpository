@@ -21,7 +21,7 @@ class DonationCollectionViewCell: UICollectionViewCell, UIActionSheetDelegate {
         didSet {
             self.organizationNameLabel.text = organization?.name
             if let totalDonated = organization?.amountGiven {
-                self.amountRaisedLabel.text = "$\(totalDonated)"
+                self.amountRaisedLabel.text = "$\(totalDonated)0"
             }
             
 //            self.profileImageView.image = UIImage(contentsOfFile: "")
@@ -45,8 +45,8 @@ class DonationCollectionViewCell: UICollectionViewCell, UIActionSheetDelegate {
         self.addSubview(organizationNameLabel)
         organizationNameLabel.translatesAutoresizingMaskIntoConstraints = false
         organizationNameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor, constant: -30).isActive = true
-        organizationNameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 15).isActive = true
-        organizationNameLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        organizationNameLabel.leftAnchor.constraint(equalTo: profileImageView.leftAnchor, constant: -10).isActive = true
+        organizationNameLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         organizationNameLabel.shadowOffset = CGSize(width: 0.1, height: 0.1)
         organizationNameLabel.shadowColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         organizationNameLabel.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
@@ -54,7 +54,7 @@ class DonationCollectionViewCell: UICollectionViewCell, UIActionSheetDelegate {
         self.addSubview(amountRaisedLabel)
         amountRaisedLabel.translatesAutoresizingMaskIntoConstraints = false
         amountRaisedLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor, constant: 10).isActive = true
-        amountRaisedLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 15).isActive = true
+        amountRaisedLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20).isActive = true
         amountRaisedLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.light)
         amountRaisedLabel.shadowOffset = CGSize(width: 0.1, height: 0.1)
         amountRaisedLabel.shadowColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -63,7 +63,7 @@ class DonationCollectionViewCell: UICollectionViewCell, UIActionSheetDelegate {
         self.addSubview(donateButton)
         donateButton.translatesAutoresizingMaskIntoConstraints = false
         donateButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor, constant: 30).isActive = true
-        donateButton.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 15).isActive = true
+        donateButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20).isActive = true
         donateButton.setTitle("Donate", for: .normal)
         donateButton.setTitleColor(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1), for: .normal)
         donateButton.setTitleShadowColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
