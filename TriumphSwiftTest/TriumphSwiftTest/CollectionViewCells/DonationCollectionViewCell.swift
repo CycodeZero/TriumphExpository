@@ -79,40 +79,24 @@ class DonationCollectionViewCell: UICollectionViewCell, UIActionSheetDelegate {
             alert in
             if let orgId = self.organization?.id {
                 Api.Donations.addDonationToOrg(orgId: orgId, amount: 1)
-                if var totalDonated = self.organization?.amountGiven {
-                    totalDonated = totalDonated + 1.0
-                    self.amountRaisedLabel.text = "$\(totalDonated)0"
-                }
             }
         })
         let donate5 = UIAlertAction(title: "Donate $5", style: .default, handler: {
             alert in
             if let orgId = self.organization?.id {
                 Api.Donations.addDonationToOrg(orgId: orgId, amount: 5)
-                if var totalDonated = self.organization?.amountGiven {
-                    totalDonated = totalDonated + 5.0
-                    self.amountRaisedLabel.text = "$\(totalDonated)0"
-                }
             }
         })
         let donate10 = UIAlertAction(title: "Donate $10", style: .default, handler: {
             alert in
             if let orgId = self.organization?.id {
                 Api.Donations.addDonationToOrg(orgId: orgId, amount: 10)
-                if var totalDonated = self.organization?.amountGiven {
-                    totalDonated = totalDonated + 10.0
-                    self.amountRaisedLabel.text = "$\(totalDonated)0"
-                }
             }
         })
         let donate100 = UIAlertAction(title: "Donate $100", style: .default, handler: {
             alert in
             if let orgId = self.organization?.id {
                 Api.Donations.addDonationToOrg(orgId: orgId, amount: 100)
-                if var totalDonated = self.organization?.amountGiven {
-                    totalDonated = totalDonated + 100.0
-                    self.amountRaisedLabel.text = "$\(totalDonated)0"
-                }
             }
         })
         
