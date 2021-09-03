@@ -48,7 +48,13 @@ class DonationsApi {
     }
     
     // TODO: Write function to increment the amount donated node under an organization with Id orgId by amount
-    func addDonationToOrg(orgId: String, uid: String="uid1") {
+    func addDonationToOrg(orgId: String, amount: Int, uid: String="uid1") {        
+        Database.database().reference().child("organization").child("\(orgId)").child("amountGiven").observeSingleEvent(of: .value, with: {
+            snapshot in
+            if let amountGiven = snapshot.value as? Int {
+                Database.database().reference().child("organization").child("\(orgId)").child("amountGiven").setValue((amountGiven + amount))
+            }
+        })
     }
     
 }

@@ -71,24 +71,32 @@ class DonationCollectionViewCell: UICollectionViewCell, UIActionSheetDelegate {
         
     }
     
-    @objc func pressed(_ sender: AnyObject) {
+    @objc func pressed(_ sender: UIButton) {
         let actionSheet = UIAlertController(title: nil, message: "Select amount to donate", preferredStyle: .actionSheet)
         
         let donate1 = UIAlertAction(title: "Donate $1", style: .default, handler: {
             alert in
-            
+            if let orgId = self.organization?.id {
+                Api.Donations.addDonationToOrg(orgId: orgId, amount: 1)
+            }
         })
         let donate5 = UIAlertAction(title: "Donate $5", style: .default, handler: {
             alert in
-            
+            if let orgId = self.organization?.id {
+                Api.Donations.addDonationToOrg(orgId: orgId, amount: 5)
+            }
         })
         let donate10 = UIAlertAction(title: "Donate $10", style: .default, handler: {
             alert in
-            
+            if let orgId = self.organization?.id {
+                Api.Donations.addDonationToOrg(orgId: orgId, amount: 10)
+            }
         })
         let donate100 = UIAlertAction(title: "Donate $100", style: .default, handler: {
             alert in
-            
+            if let orgId = self.organization?.id {
+                Api.Donations.addDonationToOrg(orgId: orgId, amount: 100)
+            }
         })
         
         actionSheet.addAction(donate1)
@@ -96,7 +104,7 @@ class DonationCollectionViewCell: UICollectionViewCell, UIActionSheetDelegate {
         actionSheet.addAction(donate10)
         actionSheet.addAction(donate100)
         
-        actionSheet.present(actionSheet, animated: true, completion: nil)
+        self.window?.rootViewController?.present(actionSheet, animated: true)
     }
     
     override init(frame: CGRect) {
