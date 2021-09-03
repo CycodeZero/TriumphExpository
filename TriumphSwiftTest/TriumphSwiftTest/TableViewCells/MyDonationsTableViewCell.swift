@@ -36,7 +36,7 @@ class MyDonationsTableViewCell: UITableViewCell {
                 Api.Organization.getOrganizationFromId(orgId: orgId, completion: {
                     organization in
                     if let photoURL = organization?.profilePhotoURL {
-                        self.profileImageView.sd_setImage(with: URL(string: photoURL + ".jpg"), placeholderImage: UIImage(named: "user.png"))
+                        self.profileImageView.sd_setImage(with: URL(string: photoURL), placeholderImage: UIImage(named: "organization.png"))
                     }
                 })
             }
