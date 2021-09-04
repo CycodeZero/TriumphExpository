@@ -13,6 +13,7 @@ class DonationViewController: UIViewController {
     var collectionView: UICollectionView?
     
     var allOrganizations: [Organization] = []
+    var isLoaded: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,18 +33,20 @@ class DonationViewController: UIViewController {
             Api.Organization.getAllOrganizations(completion: {
                 organizations in
                 
-                if let organizations = organizations {
-                    self.allOrganizations = organizations
+                if !self.isLoaded {
+                    if let organizations = organizations {
+                        self.allOrganizations = organizations
+                    }
+                }
+                DispatchQueue.main.async {
+                    self.collectionView?.reloadData()
                 }
                 
-                self.collectionView?.reloadData()
-                
-                
             })
-            
             sleep(1)
             DispatchQueue.main.async {
                 SwiftSpinner.hide()
+                self.isLoaded = true
             }
         }
         DispatchQueue.main.async {
@@ -83,10 +86,49 @@ extension DonationViewController: UICollectionViewDataSource, UICollectionViewDe
         cell.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
         let org = allOrganizations[indexPath.row]
         cell.organization = org
+        cell.delegate = self
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Selected: \(indexPath.row)")
+    }
+}
+
+extension DonationViewController: DonationCollectionViewCellDelegate {
+    func didTapOn1(cell: DonationCollectionViewCell) {
+        if let indexPath = self.collectionView?.indexPath(for: cell) {
+            if let given = cell.organization?.amountGiven {
+                cell.organization?.amountGiven = given + 1.0
+                collectionView?.reloadItems(at: [indexPath])
+            }
+        }
+    }
+    
+    func didTapOn5(cell: DonationCollectionViewCell) {
+        if let indexPath = self.collectionView?.indexPath(for: cell) {
+            if let given = cell.organization?.amountGiven {
+                cell.organization?.amountGiven = given + 5.0
+                collectionView?.reloadItems(at: [indexPath])
+            }
+        }
+    }
+    
+    func didTapOn10(cell: DonationCollectionViewCell) {
+        if let indexPath = self.collectionView?.indexPath(for: cell) {
+            if let given = cell.organization?.amountGiven {
+                cell.organization?.amountGiven = given + 10.0
+                collectionView?.reloadItems(at: [indexPath])
+            }
+        }
+    }
+    
+    func didTapOn100(cell: DonationCollectionViewCell) {
+        if let indexPath = self.collectionView?.indexPath(for: cell) {
+            if let given = cell.organization?.amountGiven {
+                cell.organization?.amountGiven = given + 100.0
+                collectionView?.reloadItems(at: [indexPath])
+            }
+        }
     }
 }

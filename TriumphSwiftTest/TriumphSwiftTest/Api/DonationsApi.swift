@@ -55,6 +55,7 @@ class DonationsApi {
                 Database.database().reference().child("organization").child("\(orgId)").child("amountGiven").setValue((amountGiven + amount))
             }
         })
+        
     }
     
 }

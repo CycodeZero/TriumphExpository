@@ -8,6 +8,13 @@
 import UIKit
 import Foundation
 
+protocol DonationCollectionViewCellDelegate: NSObjectProtocol {
+    func didTapOn1(cell: DonationCollectionViewCell)
+    func didTapOn5(cell: DonationCollectionViewCell)
+    func didTapOn10(cell: DonationCollectionViewCell)
+    func didTapOn100(cell: DonationCollectionViewCell)
+}
+
 class DonationCollectionViewCell: UICollectionViewCell, UIActionSheetDelegate {
     
     // Views and labels
@@ -16,6 +23,14 @@ class DonationCollectionViewCell: UICollectionViewCell, UIActionSheetDelegate {
     var amountRaisedLabel = UILabel()
     var donateButton = UIButton()
     let profileCircleSize = 50
+    
+    var delegate: DonationCollectionViewCellDelegate?
+    
+    /// MARK - Constants
+    let amountGiven1 = 1.0
+    let amountGiven5 = 5.0
+    let amountGiven10 = 10.0
+    let amountGiven100 = 100.0
     
     var organization: Organization? {
         didSet {
@@ -78,25 +93,38 @@ class DonationCollectionViewCell: UICollectionViewCell, UIActionSheetDelegate {
         let donate1 = UIAlertAction(title: "Donate $1", style: .default, handler: {
             alert in
             if let orgId = self.organization?.id {
-                Api.Donations.addDonationToOrg(orgId: orgId, amount: 1)
+                Api.Donations.addDonationToOrg(orgId: orgId, amount: Int(self.amountGiven1))
+                // TODO: add reloadCollectionView protocol
+                if let delegate = self.delegate {
+                    delegate.didTapOn1(cell: self)
+                }
             }
         })
         let donate5 = UIAlertAction(title: "Donate $5", style: .default, handler: {
             alert in
             if let orgId = self.organization?.id {
-                Api.Donations.addDonationToOrg(orgId: orgId, amount: 5)
+                Api.Donations.addDonationToOrg(orgId: orgId, amount: Int(self.amountGiven5))
+                if let delegate = self.delegate {
+                    delegate.didTapOn5(cell: self)
+                }
             }
         })
         let donate10 = UIAlertAction(title: "Donate $10", style: .default, handler: {
             alert in
             if let orgId = self.organization?.id {
-                Api.Donations.addDonationToOrg(orgId: orgId, amount: 10)
+                Api.Donations.addDonationToOrg(orgId: orgId, amount: Int(self.amountGiven10))
+                if let delegate = self.delegate {
+                    delegate.didTapOn10(cell: self)
+                }
             }
         })
         let donate100 = UIAlertAction(title: "Donate $100", style: .default, handler: {
             alert in
             if let orgId = self.organization?.id {
-                Api.Donations.addDonationToOrg(orgId: orgId, amount: 100)
+                Api.Donations.addDonationToOrg(orgId: orgId, amount: Int(self.amountGiven100))
+                if let delegate = self.delegate {
+                    delegate.didTapOn100(cell: self)
+                }
             }
         })
         
